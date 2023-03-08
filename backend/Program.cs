@@ -1,8 +1,15 @@
+using backend.Db;
+using Microsoft.EntityFrameworkCore;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 
 builder.Services.AddControllers();
+builder.Services.AddDbContext<AppDbContext>(options => 
+    options.UseNpgsql("Host=localhost; Database=netcoredemo; Username=postgres; Password=anup")
+    .UseSnakeCaseNamingConvention());
+
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
