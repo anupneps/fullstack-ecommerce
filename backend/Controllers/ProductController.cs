@@ -1,15 +1,13 @@
 ﻿using backend.Models;
-
+using backend.Services;
 using Microsoft.AspNetCore.Mvc;
 
 namespace backend.Controllers
 {  
-    public class ProductController : ApiControllerBase
+    public class ProductController : CrudController<Product, ProductDTO>
     {
-        [HttpGet]
-        public ActionResult<Product> SayHello()
+        public ProductController(IcrudServices<Product, ProductDTO> services) : base(services)
         {
-            return Ok(new { Message = "Hello Backend API" });
         }
     }
 }

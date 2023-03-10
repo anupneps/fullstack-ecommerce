@@ -1,4 +1,7 @@
 using backend.Db;
+using backend.Models;
+using backend.Services;
+using backend.Services.Implementation;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Options;
 
@@ -10,6 +13,8 @@ builder.Services.AddDbContext<AppDbContext>();
 
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
+
+builder.Services.AddScoped<IcrudServices<Product, ProductDTO>, DbCrudService<Product, ProductDTO>>();
 
 var app = builder.Build();
 

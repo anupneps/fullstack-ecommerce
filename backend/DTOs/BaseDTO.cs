@@ -1,6 +1,9 @@
-﻿namespace backend.DTOs
+﻿using backend.Models;
+
+namespace backend.DTOs
 {
-    public class BaseDTO<T>
+    public abstract class BaseDTO<TModel> where TModel : BaseModel
     {
+        public abstract void UpdateModel(TModel model);
     }
 }
