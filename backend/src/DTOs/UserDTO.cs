@@ -1,6 +1,6 @@
 ﻿namespace backend.Models
 {
-    public class UserDTO
+    public class UserBaseDTO
     {
     }
 }

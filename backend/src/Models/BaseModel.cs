@@ -1,6 +1,5 @@
-﻿using Microsoft.VisualBasic;
-
-namespace backend.Models
+﻿
+namespace backend.src.Models
 {
     public class BaseModel
     {
