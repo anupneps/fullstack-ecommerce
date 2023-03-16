@@ -10,9 +10,9 @@ namespace backend.src.Repositories.BaseRepo
     public interface IBaseRepo<T>
     {
         Task<IEnumerable<T>> GetAllAsync(QueryParams options);
-        Task<T?> GetByIdAsync(string id);
-        Task<T> UpdateOneAsync(string id, T update);
-        Task<bool> DeleteOneAsync(string id);
+        Task<T?> GetByIdAsync(Guid id);
+        Task<T> UpdateOneAsync(Guid id, T update);
+        Task<bool> DeleteOneAsync(Guid id);
         Task<T?> CreateOneAsync (T create);
     }
 

@@ -21,10 +21,11 @@ namespace backend.src.Repositories.BaseRepo
         public async Task<T?> CreateOneAsync(T create)
         {
             await _context.Set<T>().AddAsync(create);
+            await _context.SaveChangesAsync();
             return create;
         }
 
-        public async Task<bool> DeleteOneAsync(string id)
+        public async Task<bool> DeleteOneAsync(Guid id)
         {
             var entity = await GetByIdAsync(id);
             if(entity is null)
@@ -52,12 +53,12 @@ namespace backend.src.Repositories.BaseRepo
             return await query.ToArrayAsync();
         }
 
-        public async Task<T?> GetByIdAsync(string id)
+        public async Task<T?> GetByIdAsync(Guid id)
         {
             return await _context.Set<T>().FindAsync(id);
         }
 
-        public async Task<T> UpdateOneAsync(string id, T update)
+        public async Task<T> UpdateOneAsync(Guid id, T update)
         {
             var entity = update;
             await _context.SaveChangesAsync();

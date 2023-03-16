@@ -1,5 +1,4 @@
-﻿using backend.Models;
-using backend.src.Models;
+﻿using backend.src.Models;
 using backend.src.Repositories.BaseRepo;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;

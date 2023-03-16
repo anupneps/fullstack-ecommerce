@@ -28,7 +28,7 @@ namespace backend.src.Services.BaseService
             return _mapper.Map<T, TReadDto>(result);
          }
 
-        public Task<bool> DeleteOneAsync(string id)
+        public Task<bool> DeleteOneAsync(Guid id)
         {
             throw new NotImplementedException();
         }
@@ -39,7 +39,7 @@ namespace backend.src.Services.BaseService
             return _mapper.Map<IEnumerable<T>, IEnumerable<TReadDto>>(data);
         }
 
-        public async Task<TReadDto?> GetByIdAsync(string id)
+        public async Task<TReadDto?> GetByIdAsync(Guid id)
         {
             var entity = await _repo.GetByIdAsync(id);
             if (entity is null)
@@ -49,7 +49,7 @@ namespace backend.src.Services.BaseService
             return _mapper.Map<T, TReadDto>(entity);
         }
 
-        public async Task<TReadDto> UpdateOneAsync(string id, TUpdateDto update)
+        public async Task<TReadDto> UpdateOneAsync(Guid id, TUpdateDto update)
         {
             var entity = await _repo.GetByIdAsync(id);
             if(entity is null)
