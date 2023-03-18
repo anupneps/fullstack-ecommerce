@@ -25,7 +25,7 @@ namespace backend.src.Repositories.BaseRepo
             return create;
         }
 
-        public async Task<bool> DeleteOneAsync(Guid id)
+        public async Task<bool> DeleteOneAsync(int id)
         {
             var entity = await GetByIdAsync(id);
             if(entity is null)
@@ -39,26 +39,30 @@ namespace backend.src.Repositories.BaseRepo
             }
         }
 
-        public async Task<IEnumerable<T>> GetAllAsync(QueryParams options)
+        public virtual async Task<IEnumerable<T>> GetAllAsync(QueryParams options)
         {
             var query = _context.Set<T>().AsNoTracking();
             if (options.Sort.Trim().Length > 0)
             {
-                if (query.GetType().GetProperty(options.Sort) != null) 
+                if (query.GetType().GetProperty(options.Sort) != null)
                 {
-                    query.OrderBy(e => e.GetType().GetProperty(options.Sort));
-                } 
-                query.Take(options.Limit).Skip(options.Skip);
+                   query =  query.OrderBy(e => e.GetType().GetProperty(options.Sort));
+                }
             }
+            if(options.Offset < 0) { options.Offset = 0; }
+            if (options.Limit < 0) { options.Limit = 0; }
+
+            query = query.Skip(options.Offset).Take(options.Limit);
+
             return await query.ToArrayAsync();
         }
 
-        public async Task<T?> GetByIdAsync(Guid id)
+        public virtual async Task<T?> GetByIdAsync(int id)
         {
             return await _context.Set<T>().FindAsync(id);
         }
 
-        public async Task<T> UpdateOneAsync(Guid id, T update)
+        public async Task<T> UpdateOneAsync(int id, T update)
         {
             var entity = update;
             await _context.SaveChangesAsync();

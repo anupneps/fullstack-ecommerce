@@ -1,4 +1,7 @@
-﻿namespace backend.src.Models
+﻿using System.ComponentModel.DataAnnotations.Schema;
+using System.Text.Json.Serialization;
+
+namespace backend.src.Models
 {
     public class Product : BaseModel
     {
@@ -7,6 +10,8 @@
         public string? Description { get; set; }
         public ICollection<Image>? Images { get; set; }
 
-        public Category Category { get; set; } = null!;
+        public int CategoryId { get; set; }
+        public Category? Category { get; set; } 
+       
     }
 }

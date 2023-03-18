@@ -1,20 +1,29 @@
 using Api.src.Repositories.ProductRepo;
 using backend.src.Db;
+using backend.src.DTOs;
 using backend.src.Models;
 using backend.src.Repositories.BaseRepo;
 using backend.src.Repositories.CategoryRepo;
 using backend.src.Repositories.ProductRepo;
 using backend.src.Repositories.UserRepo;
+using backend.src.Services.BaseService;
 using backend.src.Services.CategoryService;
 using backend.src.Services.ProductService;
 using backend.src.Services.UserService;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Options;
+using System.Text.Json.Serialization;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
-builder.Services.AddControllers();
+builder.Services
+    .AddControllers()
+    .AddJsonOptions(options =>
+    {
+    options.JsonSerializerOptions.ReferenceHandler = ReferenceHandler.IgnoreCycles;
+    });
+
 builder.Services.AddDbContext<AppDbContext>();
 builder.Services.AddAutoMapper(typeof(Program).Assembly);
 
@@ -23,7 +32,11 @@ builder.Services.AddSwaggerGen();
 
 builder.Services.AddScoped<IProductRepo, ProductRepo>().AddScoped<IProductService, ProductService>();
 builder.Services.AddScoped<IUserRepo, UserRepo>().AddScoped<IUserService, UserService>();
-builder.Services.AddScoped<ICategoryRepo, CategoryRepo>().AddScoped<ICategoryService, CategoryService>();
+//builder.Services
+//    .AddScoped<ICategoryRepo, CategoryRepo>()
+//    .AddScoped<ICategoryService, CategoryService>();
+
+builder.Services.AddScoped<ICategoryRepo, CategoryRepo>().AddScoped<ICategoryService, CategoryService>();   
 
 var app = builder.Build();
 

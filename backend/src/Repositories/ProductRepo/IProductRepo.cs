@@ -10,6 +10,10 @@ namespace backend.src.Repositories.ProductRepo
 {
     public interface IProductRepo : IBaseRepo<Product>
     {
-        
+       
+
     }
+
+   
+    
 }

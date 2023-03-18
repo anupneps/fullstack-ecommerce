@@ -8,5 +8,6 @@ namespace backend.src.Services.CategoryService
 {
     public interface ICategoryService : IBaseService<Category, CategoryReadDTO, CategoryCreateDTO, CategoryUpdateDTO>
     {
+        Task<IEnumerable<ProductReadDTO>> GetProductByCategory(int id);
     }
 }

@@ -10,9 +10,9 @@ namespace backend.src.Repositories.BaseRepo
     public interface IBaseRepo<T>
     {
         Task<IEnumerable<T>> GetAllAsync(QueryParams options);
-        Task<T?> GetByIdAsync(Guid id);
-        Task<T> UpdateOneAsync(Guid id, T update);
-        Task<bool> DeleteOneAsync(Guid id);
+        Task<T?> GetByIdAsync(int id);
+        Task<T> UpdateOneAsync(int id, T update);
+        Task<bool> DeleteOneAsync(int id);
         Task<T?> CreateOneAsync (T create);
     }
 
@@ -22,7 +22,7 @@ namespace backend.src.Repositories.BaseRepo
         public string Search { get; set; } = string.Empty;
         public SortBy SortBy { get; set; }
         public int Limit { get; set; } = 10;
-        public int Skip { get; set; } = 0;
+        public int Offset { get; set; } = 0;
     }
 
     public enum SortBy

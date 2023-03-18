@@ -32,11 +32,23 @@ namespace backend.src.Controllers
         }
 
         [HttpGet("{id}")]
-        public async Task<ActionResult<TReadDto?>> GetById([FromRoute] Guid id)
+        public async Task<ActionResult<TReadDto?>> GetById([FromRoute] int id)
         {
             return Ok(await _service.GetByIdAsync(id));
         }
 
+        [HttpPut("{id}")]
+        public async Task<ActionResult<TReadDto>> UpdateOne(int id, TUpdateDto update)
+        {
+            return Ok(await _service.UpdateOneAsync(id, update));
+
+        }
+
+        [HttpDelete("{id}")]
+        public async Task<ActionResult<TReadDto>> DeleteOne(int id)
+        {
+            return Ok(await _service.DeleteOneAsync(id));
+        }
         
     }
 }
