@@ -19,7 +19,7 @@ namespace backend.src.Services.BaseService
             _repo = repo;
          }
 
-        public async Task<TReadDto> CreateOneAsync(TCreateDto create) {
+        public virtual async Task<TReadDto> CreateOneAsync(TCreateDto create) {
             var entity = _mapper.Map<TCreateDto, T>(create);
             var result =  await _repo.CreateOneAsync(entity);
             if(result is null)

@@ -11,24 +11,16 @@ namespace backend.src.Controllers
     
     public class CategoriesController : BaseController<Category, CategoryReadDTO, CategoryCreateDTO, CategoryUpdateDTO>
     {
-       /* cannot get access to the method of GetProductByCategory(int id) though ICategoryService service .... working on the way to fix it */
-        
-        private readonly ICategoryRepo _categoryRepo; 
-
-        public CategoriesController(ICategoryService service, ICategoryRepo categoryRepo) : base(service)
+        private ICategoryService _categoryService => (ICategoryService)_service; // explict casting of child interface
+        public CategoriesController(ICategoryService service) : base(service)
         {
-            _categoryRepo = categoryRepo;
         }
-
 
         [HttpGet("{id}/products")]
         public async Task<ActionResult<Product>> GetProductByCategory(int id)
         {
-            var products = await _categoryRepo.GetProductByCategory(id);
-
+            var products = await _categoryService.GetProductByCategory(id);
             return Ok(products);
         }
-
-
     }
 }

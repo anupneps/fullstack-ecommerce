@@ -1,15 +1,21 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel;
+using System.ComponentModel.DataAnnotations;
 
 namespace backend.src.Models
 {
     public class User : BaseModel
     {
-        public string UserName { get; set; }
+        [MinLength(3)]
+        public string FirstName { get; set; } = null!;
+        [MinLength(3)]
+        public string LastName { get; set; } = null!;
+        public string UserName { get; set; } = null!;
         [EmailAddressAttribute]
-        public string Email { get; set; }
-        public Role Role { get; set; }
-        public byte[] Password { get; set; }
-        public byte[] Salt { get; set; }
+        public string Email { get; set; } = null!;
+        //public Role Role { get; set; }
+        [MinLength(6)]
+        public string Password { get; set; } = null!;
+        public byte[] Salt { get; set; } = null!;
     }
 
     public enum Role
