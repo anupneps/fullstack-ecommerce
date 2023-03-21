@@ -31,11 +31,10 @@ namespace backend.src.Services.AuthenticationService
             {
                 new Claim(ClaimTypes.NameIdentifier, user.Id.ToString()),
                 new Claim(ClaimTypes.Email, user.Email),
-                //new Claim(ClaimTypes.Role, user.Role.ToString())
+                new Claim(ClaimTypes.Role, user.Role.ToString())
             };
-            var secret = _config.GetValue<string>("AppSettings:Token");
             var tokenHander = new JwtSecurityTokenHandler();
-            var key = new SymmetricSecurityKey(System.Text.Encoding.UTF8.GetBytes(secret!));
+            var key = new SymmetricSecurityKey(System.Text.Encoding.UTF8.GetBytes(_config["Jwt:Token"]!));
             var credentials = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);
             var tokenDescriptor = new SecurityTokenDescriptor
             {

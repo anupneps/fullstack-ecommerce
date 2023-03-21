@@ -6,16 +6,19 @@ namespace backend.src.Models
     public class User : BaseModel
     {
         [MinLength(3)]
+        [MaxLength(100)]
         public string FirstName { get; set; } = null!;
         [MinLength(3)]
+        [MaxLength(100)]
         public string LastName { get; set; } = null!;
         public string UserName { get; set; } = null!;
-        [EmailAddressAttribute]
+        [EmailAddress]
         public string Email { get; set; } = null!;
-        //public Role Role { get; set; }
+        public Role Role { get; set; }
         [MinLength(6)]
         public string Password { get; set; } = null!;
         public byte[] Salt { get; set; } = null!;
+        public string? Avatar { get; set; } 
     }
 
     public enum Role

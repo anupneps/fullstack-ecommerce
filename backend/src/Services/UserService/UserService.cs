@@ -5,6 +5,8 @@ using backend.src.Services.BaseService;
 using backend.src.DTOs;
 using backend.src.Repositories.UserRepo;
 using backend.src.Services.ServiceHash;
+using System.Text;
+using System.Collections;
 
 namespace backend.src.Services.UserService
 {
@@ -20,9 +22,9 @@ namespace backend.src.Services.UserService
         public override async Task<UserReadDTO> CreateOneAsync(UserCreateDTO create)
         {
             _hash.CreateHashData(create.Password, out byte[] passwodHash, out byte[] salt);
-
             var user = _mapper.Map<UserCreateDTO, User>(create);
-            user.Password = passwodHash.ToString()!;
+            user.Password = Encoding.ASCII.GetString(passwodHash); // need to fix here 
+            Console.WriteLine(user.Password);
             user.Salt = salt;
 
             var result = await _repo.CreateOneAsync(user);
@@ -33,7 +35,6 @@ namespace backend.src.Services.UserService
             }
             return _mapper.Map<User, UserReadDTO>(result);
         }
-
     }
 }
 

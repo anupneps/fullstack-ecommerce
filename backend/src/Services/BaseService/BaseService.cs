@@ -29,7 +29,7 @@ namespace backend.src.Services.BaseService
             return _mapper.Map<T, TReadDto>(result);
          }
 
-        public async Task<bool> DeleteOneAsync(int id)
+        public virtual async Task<bool> DeleteOneAsync(int id)
         {
             
             return await _repo.DeleteOneAsync(id);

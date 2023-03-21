@@ -18,7 +18,7 @@ namespace backend.src.Controllers
         }
 
         [HttpPost]
-        public async Task<ActionResult<TReadDto?>> CreateOne(TCreateDto create)
+        public async virtual Task<ActionResult<TReadDto?>> CreateOne(TCreateDto create)
         {
             var result = await _service.CreateOneAsync(create);
             //return CreatedAtAction("Created", result);
@@ -45,7 +45,7 @@ namespace backend.src.Controllers
         }
 
         [HttpDelete("{id}")]
-        public async Task<ActionResult<TReadDto>> DeleteOne(int id)
+        public virtual async Task<ActionResult<TReadDto>> DeleteOne(int id)
         {
             return Ok(await _service.DeleteOneAsync(id));
         }

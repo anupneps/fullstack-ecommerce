@@ -1,22 +1,20 @@
 using Api.src.Repositories.ProductRepo;
+using backend.src.Authorization;
 using backend.src.Db;
-using backend.src.DTOs;
-using backend.src.Models;
 using backend.src.Repositories.AuthenticationRepo;
-using backend.src.Repositories.BaseRepo;
 using backend.src.Repositories.CategoryRepo;
 using backend.src.Repositories.ProductRepo;
 using backend.src.Repositories.UserRepo;
 using backend.src.Services.AuthenticationService;
-using backend.src.Services.BaseService;
 using backend.src.Services.CategoryService;
 using backend.src.Services.ProductService;
 using backend.src.Services.ServiceHash;
 using backend.src.Services.UserService;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Options;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.IdentityModel.Tokens;
+using Microsoft.OpenApi.Models;
+using Swashbuckle.AspNetCore.Filters;
 using System.Text.Json.Serialization;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -34,7 +32,19 @@ builder.Services.AddDbContext<AppDbContext>();
 builder.Services.AddAutoMapper(typeof(Program).Assembly);
 
 builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerGen();
+builder.Services.AddSwaggerGen(options =>
+{
+    options.AddSecurityDefinition(
+        "oauth2",
+        new OpenApiSecurityScheme
+        {
+            Description = "Bearer token authentication",
+            Name = "Authorization",
+            In = ParameterLocation.Header,
+        }
+    );
+    options.OperationFilter<SecurityRequirementsOperationFilter>();
+});
 
 builder.Services
     .AddScoped<IProductRepo, ProductRepo>()
@@ -52,6 +62,8 @@ builder.Services
 
 builder.Services.AddScoped<IServiceHash, ServiceHash>();
 
+builder.Services.AddScoped<IAuthorizationRequirement, UpdateUserRequirement>();
+
 /* add configuration for authentication middleware */
 builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
 .AddJwtBearer(options =>
@@ -60,13 +72,18 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
     {
         ValidateIssuerSigningKey = true,
         IssuerSigningKey = new SymmetricSecurityKey(System.Text.Encoding.UTF8.GetBytes(
-            builder.Configuration.GetSection("AppSettings:Token").Value!
+            builder.Configuration.GetValue<string>("Jwt:Token")!
         )),
         ValidateIssuer = false,
         ValidateAudience = false
     };
 });
 
+builder.Services.AddAuthorization(options =>
+{
+    options.AddPolicy("AdminOnly", policy => policy.RequireRole("Admin"));
+    options.AddPolicy("AdminOrValidUser", policy => policy.AddRequirements(new UpdateUserRequirement()));
+});
 
 
 var app = builder.Build();

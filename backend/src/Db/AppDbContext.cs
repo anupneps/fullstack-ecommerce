@@ -11,6 +11,7 @@ namespace backend.src.Db
         static AppDbContext()
         {
             AppContext.SetSwitch("Npgsql.EnableLegacyTimestampBehavior", true);
+            NpgsqlConnection.GlobalTypeMapper.MapEnum<Role>();
             NpgsqlConnection.GlobalTypeMapper.MapEnum<SortBy>();
 
         }
