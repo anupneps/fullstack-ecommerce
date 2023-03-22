@@ -12,16 +12,16 @@ namespace backend.src.Services.AuthenticationService
         private readonly IAuthenticationRepo _repo;
         private readonly IConfiguration _config;
 
-        public AuthenticationService(IAuthenticationRepo repo, IConfiguration config) 
-        { 
-            _repo = repo; 
+        public AuthenticationService(IAuthenticationRepo repo, IConfiguration config)
+        {
+            _repo = repo;
             _config = config;
         }
 
         public async Task<string?> LogInAsync(AuthenticationDTO auth)
         {
             var user = await _repo.LogInAsync(auth);
-            if(user == null) { return null; }
+            if (user == null) { return null; }
             return CreateToken(user);
         }
 
@@ -45,6 +45,5 @@ namespace backend.src.Services.AuthenticationService
             var token = tokenHander.CreateToken(tokenDescriptor);
             return tokenHander.WriteToken(token);
         }
-
     }
 }

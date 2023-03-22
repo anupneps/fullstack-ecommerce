@@ -1,6 +1,5 @@
 using backend.src.Repositories.BaseRepo;
 using backend.src.Services.BaseService;
-using backend.src.Services.ProductService;
 using Microsoft.AspNetCore.Mvc;
 
 namespace backend.src.Controllers
@@ -11,7 +10,7 @@ namespace backend.src.Controllers
     public class BaseController<T, TReadDto, TCreateDto, TUpdateDto> : ControllerBase
     {
         protected readonly IBaseService<T, TReadDto, TCreateDto, TUpdateDto> _service;
-       
+
         public BaseController(IBaseService<T, TReadDto, TCreateDto, TUpdateDto> service)
         {
             _service = service;
@@ -21,7 +20,6 @@ namespace backend.src.Controllers
         public async virtual Task<ActionResult<TReadDto?>> CreateOne(TCreateDto create)
         {
             var result = await _service.CreateOneAsync(create);
-            //return CreatedAtAction("Created", result);
             return Ok(result);
         }
 
@@ -41,7 +39,6 @@ namespace backend.src.Controllers
         public async Task<ActionResult<TReadDto>> UpdateOne(int id, TUpdateDto update)
         {
             return Ok(await _service.UpdateOneAsync(id, update));
-
         }
 
         [HttpDelete("{id}")]
@@ -49,6 +46,5 @@ namespace backend.src.Controllers
         {
             return Ok(await _service.DeleteOneAsync(id));
         }
-        
     }
 }

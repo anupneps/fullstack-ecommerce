@@ -1,7 +1,6 @@
 ﻿using backend.src.DTOs;
 using backend.src.Services.AuthenticationService;
 using backend.src.Services.UserService;
-using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using System.Security.Claims;
 
@@ -13,7 +12,7 @@ namespace backend.src.Controllers
     {
         private readonly IAuthenticationService _service;
         private readonly IUserService _userService;
-        
+
         public AuthenticationController(IAuthenticationService service, IUserService userService)
         {
             _service = service;

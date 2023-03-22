@@ -6,6 +6,5 @@ namespace backend.src.Repositories.CategoryRepo
     public interface ICategoryRepo : IBaseRepo<Category>
     {
         Task<IEnumerable<Product>?> GetProductByCategory(int id);
-
     }
 }

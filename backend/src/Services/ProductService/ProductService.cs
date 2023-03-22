@@ -1,9 +1,8 @@
 ﻿using AutoMapper;
+using backend.src.DTOs;
 using backend.src.Models;
-using backend.src.Repositories.BaseRepo;
 using backend.src.Repositories.ProductRepo;
 using backend.src.Services.BaseService;
-using backend.src.DTOs;
 
 namespace backend.src.Services.ProductService
 {

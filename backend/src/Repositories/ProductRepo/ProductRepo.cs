@@ -1,7 +1,3 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using backend.src.Db;
 using backend.src.Models;
 using backend.src.Repositories.BaseRepo;
@@ -19,11 +15,10 @@ namespace Api.src.Repositories.ProductRepo
         public override async Task<IEnumerable<Product>> GetAllAsync(QueryParams options)
         {
             var products = _context.Products.AsNoTracking()
-                .Include(c => c.Category).ThenInclude(i=> i.Image)
-                .Include(s=>s.Images);
+                .Include(c => c.Category).ThenInclude(i => i!.Image)
+                .Include(s => s.Images);
 
             var query = products.AsQueryable();
-           
 
             if (options.Sort.Trim().Length > 0)
             {
@@ -50,8 +45,7 @@ namespace Api.src.Repositories.ProductRepo
 
         public override async Task<Product?> GetByIdAsync(int id)
         {
-            return await _context.Products.Include(p => p.Category).ThenInclude(i=>i.Image).Include(p=>p.Images).FirstOrDefaultAsync(p => p.Id == id);
+            return await _context.Products.Include(p => p.Category).ThenInclude(i => i!.Image).Include(p => p.Images).FirstOrDefaultAsync(p => p.Id == id);
         }
-
     }
 }

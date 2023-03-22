@@ -1,6 +1,7 @@
 using Api.src.Repositories.ProductRepo;
 using backend.src.Authorization;
 using backend.src.Db;
+using backend.src.Helpers;
 using backend.src.Repositories.AuthenticationRepo;
 using backend.src.Repositories.CategoryRepo;
 using backend.src.Repositories.ProductRepo;
@@ -28,63 +29,61 @@ builder.Services
         options.JsonSerializerOptions.ReferenceHandler = ReferenceHandler.IgnoreCycles;
     });
 
-builder.Services.AddDbContext<AppDbContext>();
-builder.Services.AddAutoMapper(typeof(Program).Assembly);
+builder.Services
+    .AddDbContext<AppDbContext>()
+    .AddAutoMapper(typeof(Program).Assembly)
+    .AddSingleton(AutoMappingConfig.RegisterMapping());
 
-builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerGen(options =>
-{
-    options.AddSecurityDefinition(
-        "oauth2",
-        new OpenApiSecurityScheme
-        {
-            Description = "Bearer token authentication",
-            Name = "Authorization",
-            In = ParameterLocation.Header,
-        }
-    );
-    options.OperationFilter<SecurityRequirementsOperationFilter>();
-});
+builder.Services
+    .AddEndpointsApiExplorer()
+    .AddSwaggerGen(options =>
+    {
+        options.AddSecurityDefinition(
+            "oauth2",
+            new OpenApiSecurityScheme
+            {
+                Description = "Bearer token authentication",
+                Name = "Authorization",
+                In = ParameterLocation.Header,
+            }
+        );
+        options.OperationFilter<SecurityRequirementsOperationFilter>();
+    });
 
 builder.Services
     .AddScoped<IProductRepo, ProductRepo>()
-    .AddScoped<IProductService, ProductService>();
-builder.Services
+    .AddScoped<IProductService, ProductService>()
     .AddScoped<IUserRepo, UserRepo>()
-    .AddScoped<IUserService, UserService>();
-builder.Services
+    .AddScoped<IUserService, UserService>()
     .AddScoped<IAuthenticationRepo, AuthenticationRepo>()
-    .AddScoped<IAuthenticationService, AuthenticationService>();
-
-builder.Services
+    .AddScoped<IAuthenticationService, AuthenticationService>()
     .AddScoped<ICategoryRepo, CategoryRepo>()
-    .AddScoped<ICategoryService, CategoryService>();
-
-builder.Services.AddScoped<IServiceHash, ServiceHash>();
-
-builder.Services.AddScoped<IAuthorizationRequirement, UpdateUserRequirement>();
+    .AddScoped<ICategoryService, CategoryService>()
+    .AddScoped<IServiceHash, ServiceHash>()
+    .AddScoped<IAuthorizationRequirement, UpdateUserRequirement>();
 
 /* add configuration for authentication middleware */
-builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
-.AddJwtBearer(options =>
-{
-    options.TokenValidationParameters = new TokenValidationParameters
+
+builder.Services
+    .AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+    .AddJwtBearer(options =>
     {
-        ValidateIssuerSigningKey = true,
-        IssuerSigningKey = new SymmetricSecurityKey(System.Text.Encoding.UTF8.GetBytes(
-            builder.Configuration.GetValue<string>("Jwt:Token")!
-        )),
-        ValidateIssuer = false,
-        ValidateAudience = false
-    };
-});
+        options.TokenValidationParameters = new TokenValidationParameters
+        {
+            ValidateIssuerSigningKey = true,
+            IssuerSigningKey = new SymmetricSecurityKey(System.Text.Encoding.UTF8.GetBytes(
+                builder.Configuration.GetValue<string>("Jwt:Token")!
+            )),
+            ValidateIssuer = false,
+            ValidateAudience = false
+        };
+    });
 
 builder.Services.AddAuthorization(options =>
-{
-    options.AddPolicy("AdminOnly", policy => policy.RequireRole("Admin"));
-    options.AddPolicy("AdminOrValidUser", policy => policy.AddRequirements(new UpdateUserRequirement()));
-});
-
+    {
+        options.AddPolicy("AdminOnly", policy => policy.RequireRole("Admin"));
+        options.AddPolicy("AdminOrValidUser", policy => policy.AddRequirements(new UpdateUserRequirement()));
+    });
 
 var app = builder.Build();
 

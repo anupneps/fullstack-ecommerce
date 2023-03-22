@@ -1,37 +1,34 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using AutoMapper;
 using backend.src.Helpers;
 using backend.src.Repositories.BaseRepo;
 
 namespace backend.src.Services.BaseService
 {
-    public class BaseService<T, TReadDto, TCreateDto, TUpdateDto>: IBaseService<T, TReadDto, TCreateDto, TUpdateDto>
+    public class BaseService<T, TReadDto, TCreateDto, TUpdateDto> : IBaseService<T, TReadDto, TCreateDto, TUpdateDto>
     {
         protected readonly IMapper _mapper;
         protected readonly IBaseRepo<T> _repo;
         private IMapper mapper;
 
-        public BaseService(IMapper mapper, IBaseRepo<T> repo) {
+        public BaseService(IMapper mapper, IBaseRepo<T> repo)
+        {
             _mapper = mapper;
             _repo = repo;
-         }
+        }
 
-        public virtual async Task<TReadDto> CreateOneAsync(TCreateDto create) {
+        public virtual async Task<TReadDto> CreateOneAsync(TCreateDto create)
+        {
             var entity = _mapper.Map<TCreateDto, T>(create);
-            var result =  await _repo.CreateOneAsync(entity);
-            if(result is null)
+            var result = await _repo.CreateOneAsync(entity);
+            if (result is null)
             {
                 throw new Exception("Cannot create");
             }
             return _mapper.Map<T, TReadDto>(result);
-         }
+        }
 
         public virtual async Task<bool> DeleteOneAsync(int id)
         {
-            
             return await _repo.DeleteOneAsync(id);
         }
 
@@ -54,9 +51,9 @@ namespace backend.src.Services.BaseService
         public async Task<TReadDto> UpdateOneAsync(int id, TUpdateDto update)
         {
             var entity = await _repo.GetByIdAsync(id);
-            if(entity is null)
+            if (entity is null)
             {
-                 throw ServiceException.NotFound();
+                throw ServiceException.NotFound();
             }
             var result = await _repo.UpdateOneAsync(id, _mapper.Map<TUpdateDto, T>(update));
             return _mapper.Map<T, TReadDto>(result);

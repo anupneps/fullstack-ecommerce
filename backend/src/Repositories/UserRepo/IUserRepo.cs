@@ -5,6 +5,5 @@ namespace backend.src.Repositories.UserRepo
 {
     public interface IUserRepo : IBaseRepo<User>
     {
-       
     }
 }

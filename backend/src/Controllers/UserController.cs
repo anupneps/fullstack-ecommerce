@@ -1,7 +1,6 @@
-﻿using backend.src.Models;
-using backend.src.Services.BaseService;
+﻿using backend.src.DTOs;
+using backend.src.Models;
 using backend.src.Services.UserService;
-using backend.src.DTOs;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
@@ -26,6 +25,5 @@ namespace backend.src.Controllers
         {
             return Ok(await _service.DeleteOneAsync(id));
         }
-
     }
 }

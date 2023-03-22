@@ -1,12 +1,9 @@
 ﻿using AutoMapper;
-using backend.src.Models;
-using backend.src.Repositories.BaseRepo;
-using backend.src.Services.BaseService;
 using backend.src.DTOs;
+using backend.src.Models;
 using backend.src.Repositories.UserRepo;
+using backend.src.Services.BaseService;
 using backend.src.Services.ServiceHash;
-using System.Text;
-using System.Collections;
 
 namespace backend.src.Services.UserService
 {
@@ -23,8 +20,7 @@ namespace backend.src.Services.UserService
         {
             _hash.CreateHashData(create.Password, out byte[] passwodHash, out byte[] salt);
             var user = _mapper.Map<UserCreateDTO, User>(create);
-            user.Password = Encoding.ASCII.GetString(passwodHash); // need to fix here 
-            Console.WriteLine(user.Password);
+            user.Password = passwodHash;
             user.Salt = salt;
 
             var result = await _repo.CreateOneAsync(user);

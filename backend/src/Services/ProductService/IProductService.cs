@@ -1,6 +1,6 @@
-﻿using backend.src.Models;
+﻿using backend.src.DTOs;
+using backend.src.Models;
 using backend.src.Services.BaseService;
-using backend.src.DTOs;
 
 namespace backend.src.Services.ProductService
 {

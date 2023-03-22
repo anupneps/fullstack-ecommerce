@@ -1,13 +1,12 @@
 ﻿using AutoMapper;
-using backend.src.Models;
 using backend.src.DTOs;
-
+using backend.src.Models;
 
 namespace backend.src
 {
     public class AutoMapperProfile : Profile
     {
-        public AutoMapperProfile() 
+        public AutoMapperProfile()
         {
             CreateMap<Product, ProductReadDTO>();
             CreateMap<ProductUpdateDTO, Product>();

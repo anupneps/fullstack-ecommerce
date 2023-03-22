@@ -6,6 +6,5 @@ namespace backend.src.Repositories.AuthenticationRepo
     public interface IAuthenticationRepo
     {
         Task<User?> LogInAsync(AuthenticationDTO auth);
-        
     }
 }

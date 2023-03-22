@@ -2,7 +2,6 @@
 using backend.src.Models;
 using backend.src.Repositories.BaseRepo;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Query;
 
 namespace backend.src.Repositories.CategoryRepo
 {
@@ -18,7 +17,7 @@ namespace backend.src.Repositories.CategoryRepo
                 .AsNoTracking()
                 .Include(c => c.Image)
                 .Include(p => p.Products);
-               
+
 
             var query = categories.AsQueryable();
 
@@ -31,7 +30,7 @@ namespace backend.src.Repositories.CategoryRepo
             }
             if (!string.IsNullOrEmpty(options.Search))
             {
-               query = query.Where(p=>p.Name.Contains(options.Search));
+                query = query.Where(p => p.Name.Contains(options.Search));
             }
 
             if (options.Offset < 0) { options.Offset = 0; }
@@ -43,19 +42,16 @@ namespace backend.src.Repositories.CategoryRepo
 
         public override async Task<Category?> GetByIdAsync(int id)
         {
-            return await _context.Categories.Include(c=> c.Image).Include(p=>p.Products).FirstOrDefaultAsync(c=> c.Id == id);
+            return await _context.Categories.Include(c => c.Image).Include(p => p.Products).FirstOrDefaultAsync(c => c.Id == id);
         }
 
         public async Task<IEnumerable<Product>?> GetProductByCategory(int id)
         {
-            var category = await _context.Categories.Include(p=>p.Products).FirstOrDefaultAsync(c => c.Id == id);
+            var category = await _context.Categories.Include(p => p.Products).FirstOrDefaultAsync(c => c.Id == id);
             if (category is null)
                 return null;
             return category.Products.ToArray();
-
         }
-
-        
     }
 
 }

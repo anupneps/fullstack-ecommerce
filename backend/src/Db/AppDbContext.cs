@@ -1,7 +1,6 @@
 ﻿using backend.src.Models;
 using backend.src.Repositories.BaseRepo;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Configuration;
 using Npgsql;
 
 namespace backend.src.Db
@@ -13,7 +12,6 @@ namespace backend.src.Db
             AppContext.SetSwitch("Npgsql.EnableLegacyTimestampBehavior", true);
             NpgsqlConnection.GlobalTypeMapper.MapEnum<Role>();
             NpgsqlConnection.GlobalTypeMapper.MapEnum<SortBy>();
-
         }
 
         private readonly IConfiguration _configuration;
@@ -21,7 +19,7 @@ namespace backend.src.Db
         {
             _configuration = config;
         }
-       
+
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             optionsBuilder
@@ -32,14 +30,12 @@ namespace backend.src.Db
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             //base.OnModelCreating(modelBuilder);
-
             modelBuilder.HasPostgresEnum<Role>();
             modelBuilder.Entity<User>(entity =>
             {
                 //entity.Property(e => e.Role).HasColumnType("role");
                 entity.HasIndex(e => e.Email).IsUnique();
             });
-            
         }
 
         public DbSet<Product> Products { get; set; } = null!;

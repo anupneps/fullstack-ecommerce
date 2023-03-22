@@ -15,8 +15,7 @@ namespace backend.src.Models
         [EmailAddress]
         public string Email { get; set; } = null!;
         public Role Role { get; set; }
-        [MinLength(6)]
-        public string Password { get; set; } = null!;
+        public byte[] Password { get; set; } = null!;
         public byte[] Salt { get; set; } = null!;
         public string? Avatar { get; set; } 
     }
