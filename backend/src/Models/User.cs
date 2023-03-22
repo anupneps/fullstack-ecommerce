@@ -1,5 +1,4 @@
-﻿using System.ComponentModel;
-using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel.DataAnnotations;
 
 namespace backend.src.Models
 {
@@ -14,10 +13,10 @@ namespace backend.src.Models
         public string UserName { get; set; } = null!;
         [EmailAddress]
         public string Email { get; set; } = null!;
-        public Role Role { get; set; }
+        public Role Role { get; set; } = Role.Customer;
         public byte[] Password { get; set; } = null!;
         public byte[] Salt { get; set; } = null!;
-        public string? Avatar { get; set; } 
+        public string? Avatar { get; set; }
     }
 
     public enum Role

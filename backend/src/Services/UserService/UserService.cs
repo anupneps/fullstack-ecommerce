@@ -31,6 +31,22 @@ namespace backend.src.Services.UserService
             }
             return _mapper.Map<User, UserReadDTO>(result);
         }
+
+        public override async Task<UserReadDTO> UpdateOneAsync(int id, UserUpdateDTO update)
+        {
+            var user = await _repo.GetByIdAsync(id);
+            if (user == null) { throw new Exception("User doesnot exists !"); }
+
+            _hash.CreateHashData(update.Password, out byte[] passwordHash, out byte[] salt);
+            var updatedUser = _mapper.Map(update, user);
+            updatedUser.Password = passwordHash;
+            updatedUser.Salt = salt;
+
+            var result = await _repo.UpdateOneAsync(id, updatedUser);
+
+            return _mapper.Map<User, UserReadDTO>(result);
+        }
+
     }
 }
 

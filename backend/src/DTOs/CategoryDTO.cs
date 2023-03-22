@@ -12,7 +12,10 @@ namespace backend.src.DTOs
 
     public class CategoryReadDTO : CategoryBaseDTO { }
 
-    public class CategoryUpdateDTO : CategoryBaseDTO { }
+    public class CategoryUpdateDTO : CategoryBaseDTO
+    {
+
+    }
 
     public class CategoryCreateDTO : CategoryBaseDTO { }
 

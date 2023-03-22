@@ -19,11 +19,6 @@ namespace backend.src
             CreateMap<User, UserReadDTO>();
             CreateMap<UserUpdateDTO, User>();
             CreateMap<UserCreateDTO, User>();
-
-            CreateMap<Image, ImageReadDTO>();
-            CreateMap<ImageCreateDTO, Image>();
-            CreateMap<ImageUpdateDTO, Image>();
-
         }
     }
 }

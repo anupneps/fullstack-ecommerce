@@ -8,7 +8,6 @@ namespace backend.src.Services.BaseService
     {
         protected readonly IMapper _mapper;
         protected readonly IBaseRepo<T> _repo;
-        private IMapper mapper;
 
         public BaseService(IMapper mapper, IBaseRepo<T> repo)
         {
@@ -48,14 +47,14 @@ namespace backend.src.Services.BaseService
             return _mapper.Map<T, TReadDto>(entity);
         }
 
-        public async Task<TReadDto> UpdateOneAsync(int id, TUpdateDto update)
+        public virtual async Task<TReadDto> UpdateOneAsync(int id, TUpdateDto update)
         {
             var entity = await _repo.GetByIdAsync(id);
             if (entity is null)
             {
                 throw ServiceException.NotFound();
             }
-            var result = await _repo.UpdateOneAsync(id, _mapper.Map<TUpdateDto, T>(update));
+            var result = await _repo.UpdateOneAsync(id, _mapper.Map(update, entity));
             return _mapper.Map<T, TReadDto>(result);
         }
 

@@ -87,22 +87,10 @@ builder.Services.AddAuthorization(options =>
 
 var app = builder.Build();
 
-// Configure the HTTP request pipeline.
-if (app.Environment.IsDevelopment())
-{
-    app.UseSwagger();
-    app.UseSwaggerUI();
+app.UseSwagger();
+app.UseSwaggerUI();
 
-    using (var scope = app.Services.CreateScope())
-    {
-        var dbContext = scope.ServiceProvider.GetRequiredService<AppDbContext>();
-        if (dbContext is not null)
-        {
-            dbContext.Database.EnsureDeleted();
-            dbContext.Database.EnsureCreated();
-        }
-    }
-}
+// Configure the HTTP request pipeline.
 
 app.UseHttpsRedirection();
 

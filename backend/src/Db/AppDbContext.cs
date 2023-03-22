@@ -24,18 +24,18 @@ namespace backend.src.Db
         {
             optionsBuilder
                 .UseNpgsql(_configuration.GetConnectionString("DefaultConnection")!)
+                .AddInterceptors(new AppDbContextChangeInterceptor())
                 .UseSnakeCaseNamingConvention();
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            modelBuilder.AddEntityConfig();
+            modelBuilder.UserTimeStampDefault();
+            modelBuilder.ProductTimeStampDefault();
+            modelBuilder.CategoryTimeStampDefault();
+            modelBuilder.ImageTimeStampDefault();
             //base.OnModelCreating(modelBuilder);
-            modelBuilder.HasPostgresEnum<Role>();
-            modelBuilder.Entity<User>(entity =>
-            {
-                //entity.Property(e => e.Role).HasColumnType("role");
-                entity.HasIndex(e => e.Email).IsUnique();
-            });
         }
 
         public DbSet<Product> Products { get; set; } = null!;

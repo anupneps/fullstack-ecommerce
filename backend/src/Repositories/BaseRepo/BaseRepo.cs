@@ -1,8 +1,3 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Runtime.CompilerServices;
-using System.Threading.Tasks;
 using backend.src.Db;
 using backend.src.Models;
 using Microsoft.EntityFrameworkCore;
@@ -28,10 +23,11 @@ namespace backend.src.Repositories.BaseRepo
         public async Task<bool> DeleteOneAsync(int id)
         {
             var entity = await GetByIdAsync(id);
-            if(entity is null)
+            if (entity is null)
             {
                 return false;
-            }else
+            }
+            else
             {
                 _context.Set<T>().Remove(entity);
                 await _context.SaveChangesAsync();
@@ -46,10 +42,10 @@ namespace backend.src.Repositories.BaseRepo
             {
                 if (query.GetType().GetProperty(options.Sort) != null)
                 {
-                   query =  query.OrderBy(e => e.GetType().GetProperty(options.Sort));
+                    query = query.OrderBy(e => e.GetType().GetProperty(options.Sort));
                 }
             }
-            if(options.Offset < 0) { options.Offset = 0; }
+            if (options.Offset < 0) { options.Offset = 0; }
             if (options.Limit < 0) { options.Limit = 0; }
 
             query = query.Skip(options.Offset).Take(options.Limit);
@@ -62,11 +58,12 @@ namespace backend.src.Repositories.BaseRepo
             return await _context.Set<T>().FindAsync(id);
         }
 
-        public async Task<T> UpdateOneAsync(int id, T update)
+        public virtual async Task<T> UpdateOneAsync(int id, T update)
         {
-            var entity = update;
+            var item = await GetByIdAsync(id);
+            _context.Entry(item!).CurrentValues.SetValues(update);
             await _context.SaveChangesAsync();
-            return entity;
+            return update;
         }
     }
 }

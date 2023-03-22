@@ -53,5 +53,4 @@ namespace backend.src.Repositories.CategoryRepo
             return category.Products.ToArray();
         }
     }
-
 }

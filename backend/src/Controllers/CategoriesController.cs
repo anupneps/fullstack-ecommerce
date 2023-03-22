@@ -5,6 +5,8 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace backend.src.Controllers
 {
+    [ApiController]
+    [Route("api/v1/[controller]")]
     public class CategoriesController : BaseController<Category, CategoryReadDTO, CategoryCreateDTO, CategoryUpdateDTO>
     {
         private ICategoryService _categoryService => (ICategoryService)_service; // explict casting of child interface
