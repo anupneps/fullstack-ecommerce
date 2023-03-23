@@ -9,6 +9,13 @@ backend/bin
 # Visual Studio 2015/2017 cache/options directory
 .vs/
 
+## Azure publish folder 
+backend/Properties/PublishProfile
+backend/Properties/ServiceDependencies
+backend/Properties/serviceDependencies.json
+backend/Properties/serviceDependencies.orderlyonclick - Zip Deploy
+backend/Properties/serviceDependencies.orderlyonclick - Zip Deploy.json.user
+
 # .NET
 project.lock.json
 project.fragment.lock.json
