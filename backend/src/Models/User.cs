@@ -13,7 +13,7 @@ namespace backend.src.Models
         public string UserName { get; set; } = null!;
         [EmailAddress]
         public string Email { get; set; } = null!;
-        public Role Role { get; set; } = Role.Customer;
+        public Role Role { get; set; }
         public byte[] Password { get; set; } = null!;
         public byte[] Salt { get; set; } = null!;
         public string? Avatar { get; set; }
@@ -21,8 +21,8 @@ namespace backend.src.Models
 
     public enum Role
     {
-        Admin,
-        Customer
+        customer,
+        admin
     }
 
 }

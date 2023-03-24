@@ -15,10 +15,13 @@ namespace backend.src.DTOs
         public string UserName { get; set; } = null!;
         [EmailAddress]
         public string Email { get; set; } = null!;
-        public string? Avatar { get; set; } 
+        public string? Avatar { get; set; }
     }
 
-    public class UserReadDTO : UserBaseDTO { }
+    public class UserReadDTO : UserBaseDTO
+    {
+        public Role Role { get; }
+    }
 
     public class UserCreateDTO : UserBaseDTO
     {

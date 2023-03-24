@@ -1,9 +1,11 @@
 using backend.src.Repositories.BaseRepo;
 using backend.src.Services.BaseService;
+using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Mvc;
 
 namespace backend.src.Controllers
 {
+    [EnableCors("Mypolicy")]
     [ApiController]
     [Produces("application/json")]
     [Route("api/v1/[controller]s")]

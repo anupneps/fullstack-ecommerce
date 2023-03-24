@@ -1,6 +1,7 @@
 ﻿using backend.src.DTOs;
 using backend.src.Services.AuthenticationService;
 using backend.src.Services.UserService;
+using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Mvc;
 using System.Security.Claims;
 
@@ -19,12 +20,14 @@ namespace backend.src.Controllers
             _userService = userService;
         }
 
+        [EnableCors("Mypolicy")]
         [HttpPost]
         public async Task<string?> LogInAsync(AuthenticationDTO auth)
         {
             return await _service.LogInAsync(auth);
         }
 
+        [EnableCors("Mypolicy")]
         [HttpGet("profile")]
         public async Task<ActionResult<UserReadDTO>> GetSession()
         {

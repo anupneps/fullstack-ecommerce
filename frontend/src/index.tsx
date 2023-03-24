@@ -1,18 +1,32 @@
 import React from 'react';
 import { createRoot } from 'react-dom/client';
 import { Provider } from 'react-redux';
-import { store } from './redux/store';
+
+import {saveState, store, } from './redux/store';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
-import './index.css';
+import ToggleColorMode from './components/ChangeTheme';
 
+
+store.subscribe(() =>{
+  saveState(store.getState())
+  const state = store.getState();
+
+  if(state.authenticationReducer.isAuthenticated){
+    localStorage.setItem('token', JSON.stringify(state.authenticationReducer.token))
+  } else{
+    localStorage.removeItem('token');
+  }
+}); 
 const container = document.getElementById('root')!;
 const root = createRoot(container);
 
 root.render(
   <React.StrictMode>
     <Provider store={store}>
+      <ToggleColorMode>
       <App />
+      </ToggleColorMode>
     </Provider>
   </React.StrictMode>
 );

@@ -79,6 +79,19 @@ builder.Services
         };
     });
 
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy(name: "Mypolicy",
+        policy =>
+        {
+            policy.WithOrigins("http://localhost:3000",
+                "https://hilarious-pasca-58c602.netlify.app/")
+            .AllowAnyHeader()
+            .AllowAnyMethod();
+        });
+});
+
+
 builder.Services.AddAuthorization(options =>
     {
         options.AddPolicy("AdminOnly", policy => policy.RequireRole("Admin"));
@@ -93,6 +106,8 @@ app.UseSwaggerUI();
 // Configure the HTTP request pipeline.
 
 app.UseHttpsRedirection();
+
+app.UseCors("Mypolicy");
 
 app.UseAuthentication();
 
