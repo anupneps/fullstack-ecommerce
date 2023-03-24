@@ -11,27 +11,111 @@
 * Frontend: SASS, TypeScript, React, Redux Toolkit
 * Backend: ASP .NET Core, Entity Framework Core, PostgreSQL
 
-You can follow the same topics as your backend project. It is also possible to select a different topic
+## Demo
+- Frontend: https://hilarious-pasca-58c602.netlify.app/
+- Backend Api (Swagger) : https://orderlyonclick.azurewebsites.net/swagger/index.html
+- For Api Usage : https://orderlyonclick.azurewebsites.net/api/v1/{products/users/categories}
 
-## Setting Up for folder `Backend`
+## Introduction 
+This eccommere application namely Orderly is a fullstack project which has been developed using modern frontend technologies such as react and redux. The backend implementation is done using Asp.Net Core and Enity Framework having PostgreSQL as a database. The backend API is being hosted at Azure cloud services.  
 
-1. Create `appsettings.json` (and `appsettings.*.json` if needed) file in the root of folder `Backend`. You can refer to the content of file `example.json`
-2. Install all the needed packages:
-    * AutoMapper
-    * AutoMapper.Extensions.Microsoft.DependencyInjection
-    * Microsoft.EntityFrameworkCore
-    * Microsoft.EntityFrameworkCore.Design
-    * Npgsql.EntityFrameworkCore.PostgreSQL
-    \
-   *You can add more packages when necessary.*
-3. You can change .NET Core version to be compatible with your local machine
+## Frontend
 
-## Requirements
+## Features Implemented 
+1. Public Pages : Homepage, Categories, Cart, Login/SignUp
+2. Private Pages : Profile and Admin
+    - Profile page only visible by the loged in user 
+    - Admin tab appears once admin has log in 
+3. Search products from input bar and filter products by price and ascending order with buttons in categories page
+4. Search products from different categories in categories page
+5. Able to signup and login to the webpage until you refresh the page
+6. All the cart functionality can be performed (add, remove, increase/decrease quantity)
+7. Once you click on product image, it will redirect to single product page and and it has addToCart button for everyone and  Edit and Delete buttons for admins. 
+8. Theme change has been implemented (MUI example)
+9. Unit test has been done for cart. product and authentication (inprogress)
+10. CRUD operation on products
 
-Below are the steps that you need to finish in order to finish this module
+## Things to do
+1. User persistance
+2. More UI features and styling
+3. Image upload using Cloudinary
+4. react-toastify for notifications
 
-1. Your full stack project should have one git repo to manage both frontend and backend. The shared .git in the root directory is used to push commits to the remote repo. In case you need to deploy frontend and backend to different server, you can inittiate another `.git` folder in each repository. Syntax: `cd frontend` -> `git init` (similar to backend folder). Remember to add `.gitignore` for each folder when you intiate `git` repo.
-2. `frontend` folder is for the react frontend. Start with `backend` first before moving on to `frontend`.
-3. `backend` should have proper file structure, naming convention, and comply with Rest API.
-4. Each topic would have different features. However, the main routes should have CRUD operations, authentication and authorization.
-5. You need to deploy the fullstack project, rewrite `README.md` as instructed earlier in the course.
+## Instruction to start the project
+
+Clone the project
+
+- https://github.com/anupneps/fullstack-ecommerce
+
+Go to the project directory
+
+- cd frontend
+
+### `npm install`
+
+Install all the dependencies
+
+### `npm start`
+
+Runs the app in the development mode.\
+Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+
+The page will reload if you make edits.\
+You will also see any lint errors in the console.
+
+### `npm test`
+
+Launches the test runner in the interactive watch mode
+
+### `npm run build`
+
+Builds the app for production to the `build` folder.\
+It correctly bundles React in production mode and optimizes the build for the best performance.
+
+## Backend
+
+## Features Implemented 
+1. CRUD operation on products, categories for all and on users only for admin 
+2. Also custom api route to get products from each category
+3. Authentication and Autorization
+4. Deployed to Cloud
+5. Api endpoints with query params and pagination
+6. Modular and flexible architecture implementing database-repo-service-controller layers
+
+## Things to do
+1. Add more authorization policies
+2. Add middlewares and more custom exception handlers
+3. Add other custom routes
+
+## Instruction to start the project
+
+In the project directory, you can run:
+
+## Run Locally
+Clone the project
+
+- https://github.com/anupneps/fullstack-ecommerce
+
+Go to the project directory
+
+- cd backend
+
+Install dependecies
+
+- dotnet run
+
+Configure Appsetting file add the following information
+```
+{
+  "AllowedHosts": "*",
+  "Jwt": {
+    "Token": "XXXXXXXX"
+  },
+  "ConnectionStrings": {
+    "DefaultConnection": "XXXX"
+  }
+}
+
+```
+
+
