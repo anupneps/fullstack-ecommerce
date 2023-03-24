@@ -85,9 +85,11 @@ builder.Services.AddCors(options =>
         policy =>
         {
             policy.WithOrigins("http://localhost:3000",
-                "https://hilarious-pasca-58c602.netlify.app/")
+                "https://orderlyonclick.netlify.app",
+                "https://hilarious-pasca-58c602.netlify.app")
             .AllowAnyHeader()
             .AllowAnyMethod();
+
         });
 });
 
