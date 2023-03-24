@@ -12,7 +12,7 @@
 * Backend: ASP .NET Core, Entity Framework Core, PostgreSQL
 
 ## Demo
-- Frontend: https://hilarious-pasca-58c602.netlify.app/
+- Frontend: https://orderlyonclick.netlify.app/
 - Backend Api (Swagger) : https://orderlyonclick.azurewebsites.net/swagger/index.html
 - For Api Usage : https://orderlyonclick.azurewebsites.net/api/v1/{products/users/categories}
 
