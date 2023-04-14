@@ -17,7 +17,7 @@
 - For Api Usage : https://orderlyonclick.azurewebsites.net/api/v1/{products/users/categories}
 
 ## Introduction 
-This eccommere application namely Orderly is a fullstack project which has been developed using modern frontend technologies such as react and redux. The backend implementation is done using Asp.Net Core and Enity Framework having PostgreSQL as a database. The backend API is being hosted at Azure cloud services.  
+This ecommerce application namely Orderly is a fullstack project which has been developed using modern frontend technologies such as react and redux. The backend implementation is done using Asp.Net Core and Entity Framework having PostgreSQL as a database. The backend API is being hosted at Azure cloud services.  
 
 ## Frontend
 
@@ -32,7 +32,7 @@ This eccommere application namely Orderly is a fullstack project which has been 
 6. All the cart functionality can be performed (add, remove, increase/decrease quantity)
 7. Once you click on product image, it will redirect to single product page and and it has addToCart button for everyone and  Edit and Delete buttons for admins. 
 8. Theme change has been implemented (MUI example)
-9. Unit test has been done for cart. product and authentication (inprogress)
+9. Unit test has been done for cart and product 
 10. CRUD operation on products
 
 ## Things to do
