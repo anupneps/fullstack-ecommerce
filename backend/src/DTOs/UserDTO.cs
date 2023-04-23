@@ -20,7 +20,7 @@ namespace backend.src.DTOs
 
     public class UserReadDTO : UserBaseDTO
     {
-        public Role Role { get; }
+        public Role Role { get; set; }
     }
 
     public class UserCreateDTO : UserBaseDTO

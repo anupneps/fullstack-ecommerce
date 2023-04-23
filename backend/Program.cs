@@ -18,7 +18,10 @@ using Microsoft.OpenApi.Models;
 using Swashbuckle.AspNetCore.Filters;
 using System.Text.Json.Serialization;
 
+
+
 var builder = WebApplication.CreateBuilder(args);
+
 
 // Add services to the container.
 builder.Services
@@ -101,6 +104,7 @@ builder.Services.AddAuthorization(options =>
     });
 
 var app = builder.Build();
+
 
 app.UseSwagger();
 app.UseSwaggerUI();
