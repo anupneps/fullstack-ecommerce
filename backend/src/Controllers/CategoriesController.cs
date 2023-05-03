@@ -2,11 +2,13 @@
 using backend.src.Models;
 using backend.src.Services.CategoryService;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Authorization;
 
 namespace backend.src.Controllers
 {
     [ApiController]
     [Route("api/v1/[controller]")]
+    [Authorize]
     public class CategoriesController : BaseController<Category, CategoryReadDTO, CategoryCreateDTO, CategoryUpdateDTO>
     {
         private ICategoryService _categoryService => (ICategoryService)_service; // explict casting of child interface
